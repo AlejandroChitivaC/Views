@@ -1,27 +1,25 @@
-const url = ("http://localhost:3000/NEAr/")
-let campo = document.querySelector("#socialcard")
-//  
+const url = 'http://localhost:3000/NEAr';
+let campo = document.querySelector(".contenedor-social");
+console.log(campo);
+//
 var contador = 0;
-let msg = "Solo puedes dar un clic por obra de arte"
+let msg = "Solo puedes dar un clic por obra de arte";
 function contar() {
-    console.log("entra")
-    document.getElementById("btnlikes").innerHTML = contador++;
-    if (contador > 1) {
-        contador = 1;
-        alert(msg)
-    }
-
+  console.log("entra");
+  document.getElementById("btnlikes").innerHTML = contador++;
+  if (contador > 1) {
+    contador = 1;
+    alert(msg);
+  }
 }
-const getData = async (url) => {
 
-    const resp = await fetch(url);
-    
-    console.log(resp)
-    const data = await resp.json();
-    data.forEach(card => {
-        alert("ENTROOOOO")
-        const { nombre, foto, coleccion, precio, likes, nickname } = card;
-        campo.innerHTML += ` 
+const getData = async () => {
+  const resp = await fetch(url);
+  const data = await resp.json();
+  console.log(data);
+  data.forEach((card) => {
+    const { nombre, foto, coleccion, precio, likes, nickname } = card;
+    campo.innerHTML += ` 
         <div class="card">
         <img src="${foto}" alt="">
         <p>${nombre}</p>
@@ -29,9 +27,8 @@ const getData = async (url) => {
         <p>${precio}</p>
         <p>"Colección: "${coleccion}</p>
         <button id="btnlikes" class="btn btn-primary" onclick="contar()">${likes} Like </button>
-        `
+        `;
+  });
+};
 
-    })
-}
-
-window.addEventListener('DOMContentLoaded', getData);
+window.addEventListener("DOMContentLoaded", getData());
